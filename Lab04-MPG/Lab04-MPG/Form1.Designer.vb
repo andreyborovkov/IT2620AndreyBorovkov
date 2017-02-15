@@ -27,10 +27,10 @@ Partial Class Form1
         Me.lblMPG = New System.Windows.Forms.Label()
         Me.txtGallons = New System.Windows.Forms.TextBox()
         Me.txtMiles = New System.Windows.Forms.TextBox()
-        Me.txtMPG = New System.Windows.Forms.TextBox()
         Me.btnCalculateMPG = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
+        Me.lblResult = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblGallons
@@ -74,14 +74,6 @@ Partial Class Form1
         Me.txtMiles.Size = New System.Drawing.Size(121, 27)
         Me.txtMiles.TabIndex = 4
         '
-        'txtMPG
-        '
-        Me.txtMPG.Location = New System.Drawing.Point(217, 203)
-        Me.txtMPG.Multiline = True
-        Me.txtMPG.Name = "txtMPG"
-        Me.txtMPG.Size = New System.Drawing.Size(121, 27)
-        Me.txtMPG.TabIndex = 5
-        '
         'btnCalculateMPG
         '
         Me.btnCalculateMPG.Location = New System.Drawing.Point(32, 266)
@@ -109,15 +101,23 @@ Partial Class Form1
         Me.btnExit.Text = "Exit"
         Me.btnExit.UseVisualStyleBackColor = True
         '
+        'lblResult
+        '
+        Me.lblResult.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblResult.Location = New System.Drawing.Point(217, 212)
+        Me.lblResult.Name = "lblResult"
+        Me.lblResult.Size = New System.Drawing.Size(121, 27)
+        Me.lblResult.TabIndex = 9
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(435, 372)
+        Me.Controls.Add(Me.lblResult)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnCalculateMPG)
-        Me.Controls.Add(Me.txtMPG)
         Me.Controls.Add(Me.txtMiles)
         Me.Controls.Add(Me.txtGallons)
         Me.Controls.Add(Me.lblMPG)
@@ -135,8 +135,40 @@ Partial Class Form1
     Friend WithEvents lblMPG As Label
     Friend WithEvents txtGallons As TextBox
     Friend WithEvents txtMiles As TextBox
-    Friend WithEvents txtMPG As TextBox
     Friend WithEvents btnCalculateMPG As Button
     Friend WithEvents btnClear As Button
     Friend WithEvents btnExit As Button
+
+    Private Sub btnCalculateMPG_Click(sender As Object, e As EventArgs) Handles btnCalculateMPG.Click
+        ' Declare variables for the calculations.
+        Dim decMPG As Decimal ' MPG
+
+        Try
+            'Calculate and display MPG.
+            decMPG = CDec(txtMiles.Text) / CDec(txtGallons.Text)
+            lblResult.Text = decMPG.ToString()
+        Catch
+            'Error message
+            MessageBox.Show("All input must be valid numeric values.")
+        End Try
+    End Sub
+
+    Friend WithEvents lblResult As Label
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        ' Clear the text boxes
+        txtGallons.Clear()
+        txtMiles.Clear()
+
+        ' Clear the result
+        lblResult.Text = String.Empty
+
+        'Reset the focus to the first field
+        txtGallons.Focus()
+    End Sub
+
+    Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
+        ' Close the form
+        Me.Close()
+    End Sub
 End Class
