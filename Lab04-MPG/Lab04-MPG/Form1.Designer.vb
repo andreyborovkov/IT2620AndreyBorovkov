@@ -146,7 +146,7 @@ Partial Class Form1
         Try
             'Calculate and display MPG.
             decMPG = CDec(txtMiles.Text) / CDec(txtGallons.Text)
-            lblResult.Text = decMPG.ToString()
+            lblResult.Text = decMPG.ToString("N2")
         Catch
             'Error message
             MessageBox.Show("All input must be valid numeric values.")
