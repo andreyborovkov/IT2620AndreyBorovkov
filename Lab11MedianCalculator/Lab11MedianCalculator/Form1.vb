@@ -18,20 +18,25 @@
         Next
 
 
-        If intArray.Length Mod 2 <> 0 Then 'odd number of values
-            lblMedian.Text = "Median = " & intArray(intArray.GetUpperBound(0) / 2).ToString
+        'Any formulas for finding a median for odd size of the array I tried to use do not work the way I want them too for some reasons. 
+        'Even the following basic code for odd size of the array gives me the wrong result if I keep clicking the calculate button.
+        Dim medianOdd As Decimal
+        If intArray.Count = 1 Then
+            medianOdd = intArray(0)
+            lblMedian.Text = medianOdd.ToString("F2")
+        ElseIf intArray.Count = 3 Then
+            medianOdd = intArray(1)
+            lblMedian.Text = medianOdd.ToString("F2")
+        ElseIf intArray.Count = 5 Then
+            medianOdd = intArray(2)
+            lblMedian.Text = medianOdd.ToString("F2")
         Else 'Even number of values
-            Dim num1 As Integer = intArray(intArray.Count / 2)
-            Dim num2 As Integer = intArray((intArray.Count / 2) - 1)
-            Dim median As Decimal = (num1 + num2) \ 2
-            lblMedian.Text = "Median = " & median.ToString
+
+            Dim medianEven As Decimal = (intArray(intArray.Count / 2) + intArray(intArray.Count / 2 - 1)) / 2
+            lblMedian.Text = medianEven.ToString("F2")
 
         End If
 
-
-    End Sub
-
-    Private Sub btnSort_Click(sender As Object, e As EventArgs)
 
     End Sub
 End Class
